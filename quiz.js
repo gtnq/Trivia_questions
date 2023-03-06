@@ -165,7 +165,7 @@ let choices = document.querySelectorAll("#choices")
 let result = document.querySelector('#result')
 let used = []
 let score = 0
-let time = 30
+let time_limit = 30, time = document.querySelector('#timer'), timer
 
 
 function shuffle(len) {
@@ -174,6 +174,10 @@ function shuffle(len) {
         order.push(i)
     }
     return order
+}
+
+function wrong() {
+    time_limit -= 5
 }
 
 function pick(result) {
@@ -195,31 +199,37 @@ function pick(result) {
     }
 }
 
+
+
 function countdowntimer_start(){
     let input = "please say how long you like /to take the quiz, max 90s";
   
     while(true) {
-        timer = prompt(input,timer)
-        console.log(timer)
-        timer = parseInt(timer)
+        time_limit = prompt(input,time_limit)
         
-        if (timer) { // positive input
-            if (timer > 90) 
+        time_limit = parseInt(time_limit)
+        
+        if (time_limit) { // positive input
+            if (time_limit > 90) 
                 input = "smaller than 90 please"
-            else {
-                countdown(timer)
-
-                return
-            }
+            else
+                break
         } else 
             input = "Plase use a positive timerber"
     }
-}
-function countdown(timer) {
-    if (timer <= 0) {
+    let timer = setInterval(function() {
+        if (time_limit < 0) {
+            clearInterval(timer)
+            question_name.innerHTML = 'your score is ' + score
+        }else {
+            time.innerHTML = time_limit
+            time_limit --
+        }
+        
+    }, 1000)
 
-    }
 }
+
 
 function generate(quest) {
     
@@ -249,14 +259,14 @@ function init() {
     console.log(questions)
     Start.style.visibility = 'hidden'
 
-    countdowntimer_start()
+    
     let loc = Math.floor(Math.random()*(questions.length))
     let current = questions[loc]
     
     console.log(choices.length,"space", choices)
     used.push(questions[loc])
     generate(current)
-
+    countdowntimer_start()
     
     
 
