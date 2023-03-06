@@ -8,11 +8,17 @@
     <title>Quiz</title>
 </head>
 <body>
+    <div id = 'timer'></div>
     <h1 id = "question_name">Little Trivia</h1>
-    <div id = "choices"></div>
-    <div id = "choices"></div>
-    <div id = "choices"></div>
-    <div id = "choices"></div>
+    <div id = "choices_loc"></div>
+    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[0].value)' 
+        style="visibility: hidden;"></button>
+    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[1].value)' 
+        style="visibility: hidden;"></button>
+    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[2].value)' 
+        style="visibility: hidden;"></button>
+    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[3].value)' 
+        style="visibility: hidden;"></button>
     <br>
     <div id = "result"></div>
     <button id = "start" class = "strt">Start quiz</button>  
