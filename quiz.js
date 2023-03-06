@@ -183,18 +183,19 @@ function wrong() {
 function pick(result) {
     
     let loc
-    console.log(result)
+    //console.log(result)
     if (result) {
         score++
     } else {
-        //time reduce by 15
+        wrong()
     }
     while (true) {
+        
         loc = Math.floor(Math.random()*(questions.length))
-        console.log(used.includes(questions[loc]))
+        console.log('looping pick')
         if (!(questions[loc] in used)) {
             generate(questions[loc])
-            
+            return
         }
     }
 }
@@ -221,6 +222,10 @@ function countdowntimer_start(){
         if (time_limit < 0) {
             clearInterval(timer)
             question_name.innerHTML = 'your score is ' + score
+            time.innerHTML = ''
+            for (let i = 0;i < 4; i ++) {
+                choices[i].style.visibility = 'hidden'
+            }
         }else {
             time.innerHTML = time_limit
             time_limit --
@@ -248,7 +253,7 @@ function generate(quest) {
             choices[i].value = true
         else
             choices[i].value = false
-        console.log(choices[i].innerHTML, " baba ", choices[i].value)
+        //console.log(choices[i].innerHTML, " baba ", choices[i].value)
     }
     order = []    //reset
 }
@@ -263,7 +268,7 @@ function init() {
     let loc = Math.floor(Math.random()*(questions.length))
     let current = questions[loc]
     
-    console.log(choices.length,"space", choices)
+    //console.log(choices.length,"space", choices)
     used.push(questions[loc])
     generate(current)
     countdowntimer_start()
