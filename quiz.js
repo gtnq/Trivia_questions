@@ -41,7 +41,7 @@ const questions =  [
 
 let Start = document.querySelector("#start")
 let question_name = document.querySelector("#question_name")
-let choices = document.querySelector("#choices")
+let choices = document.querySelectorAll("#choices")
 let result = document.querySelector('#result')
 let used = []
 let score = 0
@@ -53,15 +53,25 @@ function shuffle(len) {
     for (let i = 0; i < len; i++) {
         order.push(i)
     }
-    return i
+    return order
 }
 
 
-function generate(q_Names, q_choices) {
-    let order = shuffle(q_choices.length)
-    question_name.innerHTML = q_Names
+function generate(quest) {
+    
+    question_name.innerHTML = quest.question
+
+    let keys = quest.incorrect_answers
+    keys.push(quest.correct_answer)
+    let order = shuffle(keys.length)
+
     for (let i = 0;i < order.length; i ++) {
-        
+        choices[i].innerHTML = keys[order[i]]
+        if (choices[order[i]].innerHTML == quest.correct_answer)
+            choices[i].value = true
+        else
+            choices[i].value = false
+        console.log(choices[i].innerHTML, " baba ", choices[i].value)
     }
 
 }
@@ -72,10 +82,11 @@ function init() {
     console.log(questions)
     let loc = Math.floor(Math.random()*(questions.length))
     let current = questions[loc]
-    let keys = current.incorrect_answers
-    keys.push(current.correct_answer)
-    console.log(questions[loc].incorrect_answers)
+    
+    console.log(choices.length,"space", choices)
     used.push(questions[loc])
+    generate(current)
+    
     
 
  
