@@ -257,6 +257,19 @@ function countdown() {
     
     
 }
+function clear_history() {
+    removechild()
+    log = []
+
+}
+
+function removechild () {
+    // used https://www.geeksforgeeks.org/remove-all-the-child-elements-of-a-dom-node-in-javascript/
+    let child = historys.firstElementChild
+    while(child)
+        child.remove()
+        child = historys.firstElementChild
+}
 
 function generate(quest) {
     
@@ -305,7 +318,8 @@ function show_history() {
     Start.style.visibility = 'hidden'
     locs.style.visibility = 'hidden'
     goback.style.visibility = 'visible'
-    document.querySelector('#gohistory')
+    question_name.style.visibility = 'hidden'
+    historys.style.visibility = 'visible'
     
     for (i = 0; i < log.length; i++) {
         let history = document.createElement('div')
@@ -314,7 +328,11 @@ function show_history() {
     }
 }
 
+
+
 function home() {
+    removechild()
+    question_name.style.visibility = 'visible'
     historys.style.visibility = 'hidden'
     question_name.innerHTML = 'Little Trivia'
     Start.style.visibility = 'visible'

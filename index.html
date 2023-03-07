@@ -8,8 +8,14 @@
     <title>Quiz</title>
 </head>
 <body>
-    <div id = 'history'><button id = 'gohistory' onclick = 'show_history()'>View History</button></div>
-    <button id = 'ret' onclick = 'home()' style="visibility: hidden">return</button>
+    <button id = 'gohistory' onclick = 'show_history()'>View History</button>
+    <div id = 'history'>
+        
+    </div>
+    <div id = 'ret' style="visibility: hidden">
+        <button onclick = 'clear_history()'>Cear History</button>
+        <button onclick = 'home()'>return</button>
+    </div>
     <div id = 'timer'></div>
     <h1 id = "question_name">Little Trivia</h1>
     <div id = "choices_loc" style="visibility: hidden">
