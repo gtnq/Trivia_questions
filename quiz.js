@@ -1,4 +1,5 @@
-//import {questions} from "./database"
+import questions = require("./database")
+/*
 const questions =  [
     {
         "category": "Entertainment: Video Games",
@@ -155,7 +156,7 @@ const questions =  [
             "Little Red Riding Hood"
         ]
     }
-]
+] */
 
 
 
@@ -263,12 +264,9 @@ function clear_history() {
 
 }
 
-function removechild () {
-    // used https://www.geeksforgeeks.org/remove-all-the-child-elements-of-a-dom-node-in-javascript/
-    let child = historys.firstElementChild
-    while(child)
-        child.remove()
-        child = historys.firstElementChild
+function removechild (){ 
+    while(historys.firstChild)
+        historys.removeChild(historys.lastChild)
 }
 
 function generate(quest) {
