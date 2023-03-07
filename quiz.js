@@ -165,13 +165,13 @@ let question_name = document.querySelector("#question_name")
 let choices = document.querySelectorAll("#choices"), locs = document.querySelector('#choices_loc')
 let result = document.querySelector('#result')
 let used = []
-let score = 0
+let score = 0, monitor = 0
 let time_limit = 30, time = document.querySelector('#timer'), timer
 let log = [], goback = document.querySelector('#ret')
 let names = document.querySelector('#user_name')
 let historys = document.querySelector('#history')
 
-function clear_history(something) {
+function clear_history() {
     removechild()
     log = []
 
@@ -221,12 +221,12 @@ function show_history() {
     }
 }
 
-function pick() {
+function pick(stuff) {
     
     let loc
-    let answer = pick.value
-    console.log(result)
-    if (answer == 'true') {
+    monitor ++
+    console.log(stuff)
+    if (stuff == 'true') {
         console.log('correct')
         result.innerHTML = "correct"
         score++
@@ -244,9 +244,11 @@ function pick() {
         //console.log('looping pick')
         if (!(questions[loc] in used)) {
             generate(questions[loc])
+            console.log(monitor)
             return
         }
     }
+    
 }
 
 
@@ -281,8 +283,6 @@ function countdown() {
         time_limit --
         time.innerHTML = 'your time:'+time_limit  
     } 
-    
-    
 }
 
 
@@ -302,11 +302,14 @@ function generate(quest) {
     let order = shuffle(keys.length)
     //console.log(keys, "keys")
     for (let i = 0;i < order.length; i ++) {
+       
         choices[i].innerHTML = keys[order[i]]
-        if (choices[order[i]].innerHTML == quest.correct_answer)
+        if (choices[order[i]].innerHTML == quest.correct_answer) {
             choices[i].value = true
-        else
+        }else{
             choices[i].value = false
+        }
+        
         //console.log(choices[i].innerHTML, " baba ", choices[i].value)
     }
     order = []    //reset
@@ -349,10 +352,13 @@ function home() {
 
 
 Start.addEventListener("click", init)
-for (let i = 0; i <choices.length; i++) {
-    choices[i].addEventListener("click", pick)
-}
 document.querySelector('#gohistory').addEventListener("click", show_history)
+for (let i = 0; i <choices.length; i++) {
+    choices[i].addEventListener('click', () => {
+            
+        pick(choices[i].value)
+    },false)
+}
 document.querySelector('#clear').addEventListener("click", clear_history)
 document.querySelector('#return_home').addEventListener("click", home)
 document.querySelector('#record').addEventListener('click', save_score)
