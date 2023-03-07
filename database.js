@@ -604,6 +604,5 @@ const questions =  [
         }
 ]
 
-module.export = {
-    questions
-}
+
+module.exports = {questions}

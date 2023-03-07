@@ -1,4 +1,4 @@
-import questions = require("./database")
+import {questions} from "./database"
 /*
 const questions =  [
     {
