@@ -1,4 +1,4 @@
-import {questions} from "./database"
+import questions from "./database.js"
 /*
 const questions =  [
     {

@@ -605,4 +605,4 @@ const questions =  [
 ]
 
 
-module.exports = {questions}
+export default questions
