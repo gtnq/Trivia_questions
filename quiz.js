@@ -161,13 +161,14 @@ const questions =  [
 
 let Start = document.querySelector("#start")
 let question_name = document.querySelector("#question_name")
-let choices = document.querySelectorAll("#choices")
+let choices = document.querySelectorAll("#choices"), locs = document.querySelector('#choices_loc')
 let result = document.querySelector('#result')
 let used = []
 let score = 0
 let time_limit = 30, time = document.querySelector('#timer'), timer
-let log = []
-let names = document.querySelectorAll('#user_name')
+let log = [], goback = document.querySelector('#ret')
+let names = document.querySelector('#user_name')
+let historys = document.querySelector('#history')
 
 
 function shuffle(len) {
@@ -180,7 +181,7 @@ function shuffle(len) {
 
 function save_score(){
     let obj = {}
-    obj.name = names[1].value
+    obj.name = document.querySelector('#user_names').value
     obj.score = score
     log.push(obj)
     console.log(obj, 'current stuff')
@@ -190,13 +191,8 @@ function save_score(){
 function finish () {
     question_name.innerHTML = 'your score is ' + score
     time.innerHTML = ''
-    for (let i = 0;i < 4; i ++) {
-        choices[i].style.visibility = 'hidden'
-    }
-    for (let i = 0; i < names.length; i++) {
-        names[i].style.visibility = 'visible'
-    }
-
+    locs.style.visibility = 'hidden'
+    names.style.visibility = 'visible'
 }
 
 function pick(result) {
@@ -244,7 +240,7 @@ function countdowntimer_start(){
         } else 
             input = "Plase use a positive timerber"
     }
-    time.innerHTML = time_limit
+    time.innerHTML = 'your time:'+time_limit
     timer = setInterval(countdown, 1000);
 }
 
@@ -256,7 +252,7 @@ function countdown() {
         finish()
     }else{
         time_limit --
-        time.innerHTML = time_limit  
+        time.innerHTML = 'your time:'+time_limit  
     } 
     
     
@@ -273,7 +269,6 @@ function generate(quest) {
     let order = shuffle(keys.length)
     //console.log(keys, "keys")
     for (let i = 0;i < order.length; i ++) {
-        choices[i].style.visibility = 'visible'
         choices[i].innerHTML = keys[order[i]]
         if (choices[order[i]].innerHTML == quest.correct_answer)
             choices[i].value = true
@@ -288,7 +283,10 @@ function generate(quest) {
 function init() {
     console.log("test")
     console.log(questions)
+    names.style.visibility = 'hidden'
     Start.style.visibility = 'hidden'
+    locs.style.visibility = 'visible'
+    score = 0
 
     
     let loc = Math.floor(Math.random()*(questions.length))
@@ -301,8 +299,28 @@ function init() {
  
 }
 
+function show_history() {
+    clearInterval(timer)
+    names.style.visibility = 'hidden'
+    Start.style.visibility = 'hidden'
+    locs.style.visibility = 'hidden'
+    goback.style.visibility = 'visible'
+    document.querySelector('#gohistory')
+    
+    for (i = 0; i < log.length; i++) {
+        let history = document.createElement('div')
+        history.innerHTML = log[i].name + '  '+ log[i].score
+        historys.appendChild(history)
+    }
+}
 
+function home() {
+    historys.style.visibility = 'hidden'
+    question_name.innerHTML = 'Little Trivia'
+    Start.style.visibility = 'visible'
+    goback.style.visibility = 'hidden'
 
+}
 
 
 Start.addEventListener("click", init)

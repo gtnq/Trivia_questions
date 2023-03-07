@@ -8,26 +8,25 @@
     <title>Quiz</title>
 </head>
 <body>
+    <div id = 'history'><button id = 'gohistory' onclick = 'show_history()'>View History</button></div>
+    <button id = 'ret' onclick = 'home()' style="visibility: hidden">return</button>
     <div id = 'timer'></div>
     <h1 id = "question_name">Little Trivia</h1>
-    <div id = "choices_loc"></div>
+    <div id = "choices_loc" style="visibility: hidden">
 
-    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[0].value)' 
-        style="visibility: hidden;"></button>
+    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[0].value)' ></button>
 
-    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[1].value)' 
-        style="visibility: hidden;"></button>
+    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[1].value)' ></button>
 
-    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[2].value)' 
-        style="visibility: hidden;"></button>
+    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[2].value)' ></button>
 
-    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[3].value)' 
-        style="visibility: hidden;"></button>
-
+    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[3].value)' ></button>
+    </div>
     <div id = 'user_name' style="visibility: hidden">Your Name is:
-        <input id = "user_name" type ='text' style = 'visibility: hidden' value = "Your name here"></input>
-        <button id = "user_name" onclick="save_score()" >submit</button></div>
-    <br>
+        <input id = 'user_names'type ='text'  value = "Your name here"></input>
+        <button onclick="save_score()" >submit</button>
+        <button onclick="init()" >restart</button></div>
+    <hr>
     <div id = "result"></div>
     <button id = "start" class = "strt">Start quiz</button>  
     <script src = 'quiz.js'></script>
