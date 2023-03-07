@@ -8,34 +8,34 @@
     <title>Quiz</title>
 </head>
 <body>
-    <button id = 'gohistory' onclick = 'show_history()'>View History</button>
+    <button id = 'gohistory'>View History</button>
     <div id = 'history'>
         
     </div>
     <div id = 'ret' style="visibility: hidden">
-        <button onclick = 'clear_history()'>Cear History</button>
-        <button onclick = 'home()'>return</button>
+        <button id = 'clear' >Cear History</button>
+        <button id = 'return_home'>return</button>
     </div>
     <div id = 'timer'></div>
     <h1 id = "question_name">Little Trivia</h1>
     <div id = "choices_loc" style="visibility: hidden">
 
-    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[0].value)' ></button>
+    <button id = "choices"></button>
 
-    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[1].value)' ></button>
+    <button id = "choices"></button>
 
-    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[2].value)' ></button>
+    <button id = "choices"></button>
 
-    <button id = "choices" onClick = 'pick(document.querySelectorAll("#choices")[3].value)' ></button>
+    <button id = "choices"></button>
     </div>
     <div id = 'user_name' style="visibility: hidden">Your Name is:
         <input id = 'user_names'type ='text'  value = "Your name here"></input>
-        <button onclick="save_score()" >submit</button>
-        <button onclick="init()" >restart</button></div>
+        <button id = 'record' >submit</button>
+        <button id = 'restart' >restart</button></div>
     <hr>
     <div id = "result"></div>
     <button id = "start" class = "strt">Start quiz</button>  
-    <script src = 'quiz.js'></script>
+    <script type = 'module' src = './quiz.js'></script>
 </body>
 
 </html>

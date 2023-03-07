@@ -171,13 +171,19 @@ let log = [], goback = document.querySelector('#ret')
 let names = document.querySelector('#user_name')
 let historys = document.querySelector('#history')
 
+function clear_history(something) {
+    removechild()
+    log = []
+
+}
+
 
 function shuffle(len) {
     let order = []
     for (let i = 0; i < len; i++) {
         order.push(i)
     }
-    return order
+    return order;
 }
 
 function save_score(){
@@ -194,13 +200,33 @@ function finish () {
     time.innerHTML = ''
     locs.style.visibility = 'hidden'
     names.style.visibility = 'visible'
+    result.style.visibility = 'hidden'
+    return
 }
 
-function pick(result) {
+
+function show_history() {
+    clearInterval(timer)
+    names.style.visibility = 'hidden'
+    Start.style.visibility = 'hidden'
+    locs.style.visibility = 'hidden'
+    goback.style.visibility = 'visible'
+    question_name.style.visibility = 'hidden'
+    historys.style.visibility = 'visible'
+    
+    for (let i = 0; i < log.length; i++) {
+        let history = document.createElement('div')
+        history.innerHTML = log[i].name + '  '+ log[i].score
+        historys.appendChild(history)
+    }
+}
+
+function pick() {
     
     let loc
+    let answer = pick.value
     console.log(result)
-    if (result == 'true') {
+    if (answer == 'true') {
         console.log('correct')
         result.innerHTML = "correct"
         score++
@@ -258,11 +284,7 @@ function countdown() {
     
     
 }
-function clear_history() {
-    removechild()
-    log = []
 
-}
 
 function removechild (){ 
     while(historys.firstChild)
@@ -305,26 +327,13 @@ function init() {
     
     //console.log(choices.length,"space", choices)
     used.push(questions[loc])
+    result.style.visibility = 'visible'
+    result.innerHTML = ''
     generate(current)
     countdowntimer_start()
  
 }
 
-function show_history() {
-    clearInterval(timer)
-    names.style.visibility = 'hidden'
-    Start.style.visibility = 'hidden'
-    locs.style.visibility = 'hidden'
-    goback.style.visibility = 'visible'
-    question_name.style.visibility = 'hidden'
-    historys.style.visibility = 'visible'
-    
-    for (i = 0; i < log.length; i++) {
-        let history = document.createElement('div')
-        history.innerHTML = log[i].name + '  '+ log[i].score
-        historys.appendChild(history)
-    }
-}
 
 
 
@@ -340,4 +349,11 @@ function home() {
 
 
 Start.addEventListener("click", init)
-
+for (let i = 0; i <choices.length; i++) {
+    choices[i].addEventListener("click", pick)
+}
+document.querySelector('#gohistory').addEventListener("click", show_history)
+document.querySelector('#clear').addEventListener("click", clear_history)
+document.querySelector('#return_home').addEventListener("click", home)
+document.querySelector('#record').addEventListener('click', save_score)
+document.querySelector('#restart').addEventListener('click', init)

@@ -1,7 +1,8 @@
 
 
 /* Trivia API from https://opentdb.com/api_config.php*/
-const questions =  [
+
+ const questions =  [
         {
             "category": "Entertainment: Video Games",
             "type": "multiple",
