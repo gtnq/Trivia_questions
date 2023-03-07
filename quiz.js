@@ -166,6 +166,8 @@ let result = document.querySelector('#result')
 let used = []
 let score = 0
 let time_limit = 30, time = document.querySelector('#timer'), timer
+let log = []
+let names = document.querySelectorAll('#user_name')
 
 
 function shuffle(len) {
@@ -176,8 +178,25 @@ function shuffle(len) {
     return order
 }
 
-function wrong() {
-    time_limit -= 5
+function save_score(){
+    let obj = {}
+    obj.name = names[1].value
+    obj.score = score
+    log.push(obj)
+    console.log(obj, 'current stuff')
+    console.log(log, 'overall')
+}
+
+function finish () {
+    question_name.innerHTML = 'your score is ' + score
+    time.innerHTML = ''
+    for (let i = 0;i < 4; i ++) {
+        choices[i].style.visibility = 'hidden'
+    }
+    for (let i = 0; i < names.length; i++) {
+        names[i].style.visibility = 'visible'
+    }
+
 }
 
 function pick(result) {
@@ -186,12 +205,14 @@ function pick(result) {
     console.log(result)
     if (result == 'true') {
         console.log('correct')
+        result.innerHTML = "correct"
         score++
     } else {
         clearInterval(timer)
         console.log('wrong')
         time_limit -= 5
         timer = setInterval(countdown, 1000)
+        result.innerHTML = "Wrong"
 
     }
     while (true) {
@@ -230,13 +251,9 @@ function countdowntimer_start(){
 function countdown() {
     
     
-    if (time_limit < 0) {
+    if (time_limit < 1) {
         clearInterval(timer)
-        question_name.innerHTML = 'your score is ' + score
-        time.innerHTML = ''
-        for (let i = 0;i < 4; i ++) {
-            choices[i].style.visibility = 'hidden'
-        }
+        finish()
     }else{
         time_limit --
         time.innerHTML = time_limit  
@@ -281,9 +298,6 @@ function init() {
     used.push(questions[loc])
     generate(current)
     countdowntimer_start()
-    
-    
-
  
 }
 
