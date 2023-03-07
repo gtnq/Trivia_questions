@@ -183,16 +183,21 @@ function wrong() {
 function pick(result) {
     
     let loc
-    //console.log(result)
-    if (result) {
+    console.log(result)
+    if (result == 'true') {
+        console.log('correct')
         score++
     } else {
-        wrong()
+        clearInterval(timer)
+        console.log('wrong')
+        time_limit -= 5
+        timer = setInterval(countdown, 1000)
+
     }
     while (true) {
         
         loc = Math.floor(Math.random()*(questions.length))
-        console.log('looping pick')
+        //console.log('looping pick')
         if (!(questions[loc] in used)) {
             generate(questions[loc])
             return
@@ -218,23 +223,27 @@ function countdowntimer_start(){
         } else 
             input = "Plase use a positive timerber"
     }
-    let timer = setInterval(function() {
-        if (time_limit < 0) {
-            clearInterval(timer)
-            question_name.innerHTML = 'your score is ' + score
-            time.innerHTML = ''
-            for (let i = 0;i < 4; i ++) {
-                choices[i].style.visibility = 'hidden'
-            }
-        }else {
-            time.innerHTML = time_limit
-            time_limit --
-        }
-        
-    }, 1000)
-
+    time.innerHTML = time_limit
+    timer = setInterval(countdown, 1000);
 }
 
+function countdown() {
+    
+    
+    if (time_limit < 0) {
+        clearInterval(timer)
+        question_name.innerHTML = 'your score is ' + score
+        time.innerHTML = ''
+        for (let i = 0;i < 4; i ++) {
+            choices[i].style.visibility = 'hidden'
+        }
+    }else{
+        time_limit --
+        time.innerHTML = time_limit  
+    } 
+    
+    
+}
 
 function generate(quest) {
     
@@ -245,7 +254,7 @@ function generate(quest) {
         keys.push(quest.correct_answer)
     }
     let order = shuffle(keys.length)
-    console.log(keys, "keys")
+    //console.log(keys, "keys")
     for (let i = 0;i < order.length; i ++) {
         choices[i].style.visibility = 'visible'
         choices[i].innerHTML = keys[order[i]]
